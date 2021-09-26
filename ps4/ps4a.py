@@ -23,13 +23,22 @@ def get_permutations(sequence):
 	a different order than what is listed here.
 	'''
 	perm = []
+	if len(sequence) == 1:
+		perm.append(sequence)
+		return perm
+		
+	else:
+		perm = get_permutations(sequence[1:])
+		perm_new = []
 
-	for i in range(len(sequence)):
-		sequence_list = list(sequence)
-		sequence_list[0] , sequence_list[i] = sequence_list[i] , sequence_list[0]
-		perm.append(''.join(sequence_list))
-	
-	print(perm)
+		for element in perm:
+			i = 0
+			for char in element:
+				perm_new.append(element[0:i] + sequence[0] + element[i:])
+				i += 1
+			perm_new.append(element + sequence[0])
+		return perm_new
+
 		
 
 
@@ -43,5 +52,5 @@ if __name__ == '__main__':
 #    # Put three example test cases here (for your sanity, limit your inputs
 #    to be three characters or fewer as you will have n! permutations for a 
 #    sequence of length n)
-	get_permutations('abcd')
+	print(get_permutations('abcd'))
 
